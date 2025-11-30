@@ -1,3 +1,139 @@
+<JobCardScreen>:
+    name: "job_card"
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 24
+        spacing: 16
+        ScrollView:
+            do_scroll_x: False
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: 12
+                Label:
+                    text: "New Job Card"
+                    font_size: '22sp'
+                    bold: True
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: name
+                    hint_text: "Name"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: phone
+                    hint_text: "Phone"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: place
+                    hint_text: "Place"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: bike_no
+                    hint_text: "Bike No."
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: model
+                    hint_text: "Model"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: year
+                    hint_text: "Year"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: engine_no
+                    hint_text: "Engine Number"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: chasis_no
+                    hint_text: "Chasis Number"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                TextInput:
+                    id: approx_amount
+                    hint_text: "Approx Amount"
+                    multiline: False
+                    size_hint_y: None
+                    height: '40dp'
+                Label:
+                    text: "Customer Demand"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
+                TextInput:
+                    id: customer_demand
+                    hint_text: "Customer Demand"
+                    multiline: True
+                    size_hint_y: None
+                    height: '80dp'
+                Label:
+                    text: "Pechiyamman Demand"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
+                TextInput:
+                    id: pechiyamman_demand
+                    hint_text: "Pechiyamman Demand"
+                    multiline: True
+                    size_hint_y: None
+                    height: '80dp'
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '40dp'
+                    Label:
+                        text: "In Time"
+                        size_hint_x: 0.4
+                        font_size: '15sp'
+                    TextInput:
+                        id: in_time
+                        text: app.get_current_time()
+                        readonly: True
+                        size_hint_x: 0.6
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '40dp'
+                    Label:
+                        text: "Est Time"
+                        size_hint_x: 0.4
+                        font_size: '15sp'
+                    TextInput:
+                        id: est_time
+                        hint_text: "Select Est. Date & Time"
+                        multiline: False
+                        size_hint_x: 0.6
+                        on_focus: app.open_datetime_picker(self) if self.focus else None
+                BoxLayout:
+                    orientation: 'horizontal'
+                    size_hint_y: None
+                    height: '48dp'
+                    spacing: 10
+                    Button:
+                        text: "Cancel"
+                        on_release: app.root.current = "dashboard"
+                    Button:
+                        text: "Generate PDF"
+                        on_release: app.root.get_screen('job_card').generate_job_card_pdf(name.text, phone.text, place.text, bike_no.text, model.text, year.text, engine_no.text, chasis_no.text, approx_amount.text, customer_demand.text, pechiyamman_demand.text, in_time.text, est_time.text)
+# --- BILLING SCREEN ---
+<BillingScreen>:
+    name: "billing"
 #:kivy 2.1.0
 #:import Factory kivy.factory.Factory
 
@@ -126,12 +262,125 @@
         orientation: 'vertical'
         padding: 20
         spacing: 15
+
         PopupButton:
             text: "Generate Invoice"
-            on_release: root.dismiss()
-        PopupButton:
-            text: "Payment History"
-            on_release: root.dismiss()
+            on_release:
+                root.dismiss()
+                Factory.GenerateInvoicePopup().open()
+
+
+# --- GENERATE INVOICE POPUP ---
+<GenerateInvoicePopup>:
+    title: "Generate Invoice"
+    size_hint: 0.9, 0.7
+    auto_dismiss: False
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+        Label:
+            text: "Enter Customer Details"
+            font_size: '18sp'
+            size_hint_y: None
+            height: '30dp'
+        TextInput:
+            id: customer_name
+            hint_text: "Name"
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+        TextInput:
+            id: customer_phone
+            hint_text: "Phone Number"
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+        TextInput:
+            id: bike_number
+            hint_text: "Bike Number"
+            multiline: False
+            size_hint_y: None
+            height: '40dp'
+        Label:
+            text: "Select Services"
+            font_size: '16sp'
+            size_hint_y: None
+            height: '28dp'
+        GridLayout:
+            cols: 1
+            size_hint_y: None
+            height: self.minimum_height
+            BoxLayout:
+                size_hint_y: None
+                height: '32dp'
+                CheckBox:
+                    id: bike_wash
+                    active: False
+                    size_hint_x: None
+                    width: '32dp'
+                Label:
+                    text: "Bike wash - ₹100"
+                    font_size: '15sp'
+                    color: (0.2, 0.2, 0.2, 1)
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+            BoxLayout:
+                size_hint_y: None
+                height: '32dp'
+                CheckBox:
+                    id: car_wash
+                    active: False
+                    size_hint_x: None
+                    width: '32dp'
+                Label:
+                    text: "Car wash - ₹300"
+                    font_size: '15sp'
+                    color: (0.2, 0.2, 0.2, 1)
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+            BoxLayout:
+                size_hint_y: None
+                height: '32dp'
+                CheckBox:
+                    id: bike_repairs
+                    active: False
+                    size_hint_x: None
+                    width: '32dp'
+                Label:
+                    text: "Bike repairs - ₹200"
+                    font_size: '15sp'
+                    color: (0.2, 0.2, 0.2, 1)
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+            BoxLayout:
+                size_hint_y: None
+                height: '32dp'
+                CheckBox:
+                    id: car_repairs
+                    active: False
+                    size_hint_x: None
+                    width: '32dp'
+                Label:
+                    text: "Car repair - ₹2000"
+                    font_size: '15sp'
+                    color: (0.2, 0.2, 0.2, 1)
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.size
+        BoxLayout:
+            size_hint_y: None
+            height: '48dp'
+            spacing: 10
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Generate"
+                on_release: app.root.get_screen('billing').generate_invoice(customer_name.text, customer_phone.text, bike_number.text, bike_wash.active, car_wash.active, bike_repairs.active, car_repairs.active); root.dismiss()
 
 # --- SCREEN MANAGER ---
 
@@ -163,9 +412,9 @@
             orientation: "vertical"
             size_hint_y: 0.35
             spacing: 12
-            
-            # Logo and Shop Name Section
-            BoxLayout:
+            PopupButton:
+                text: "Payment History"
+                on_release: root.dismiss()
                 orientation: "horizontal"
                 size_hint_y: 0.6
                 spacing: 12
