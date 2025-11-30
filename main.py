@@ -5,9 +5,11 @@ from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager
 from kivy.core.window import Window
+from datetime import datetime
 
 # --- Import Views (Screens) ---
 # These will be created in later steps.
+
 # Ensuring these imports exist effectively registers them with Kivy if they define KV rules.
 from screens.dashboard import DashboardScreen
 from screens.stock_add import StockAddScreen
@@ -17,6 +19,7 @@ from screens.jobcard import JobCardScreen
 from screens.analytics import AnalyticsScreen
 from screens.customer_list import CustomerListScreen
 from screens.vehicle_list import VehicleListScreen
+from screens.generate_invoice_popup import GenerateInvoicePopup
 
 # --- Import Backend Configurations ---
 from firebase.firebase_config import initialize_firebase
@@ -74,6 +77,10 @@ class WorkshopApp(App):
             logger.info("Firebase initialized successfully.")
         except Exception as e:
             logger.error(f"Failed to init Firebase (App might be offline): {e}")
+
+
+    def get_current_time(self):
+        return datetime.now().strftime("%d-%m-%Y %I:%M %p")
 
 
 if __name__ == "__main__":
