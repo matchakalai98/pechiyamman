@@ -78,9 +78,17 @@ class WorkshopApp(App):
         except Exception as e:
             logger.error(f"Failed to init Firebase (App might be offline): {e}")
 
-
     def get_current_time(self):
         return datetime.now().strftime("%d-%m-%Y %I:%M %p")
+
+    def open_datetime_picker(self, textinput):
+        """
+        Opens a datetime picker and sets the selected datetime to the given TextInput.
+        """
+        from datetime import datetime
+
+        # For now, just set the current time for demonstration
+        textinput.text = datetime.now().strftime("%d-%m-%Y %I:%M %p")
 
 
 if __name__ == "__main__":
