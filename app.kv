@@ -13,61 +13,106 @@
                 spacing: 12
                 Label:
                     text: "New Job Card"
-                    font_size: '22sp'
+                    font_size: '32sp'
                     bold: True
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Name"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: name
                     hint_text: "Name"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Phone"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: phone
                     hint_text: "Phone"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Place"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: place
                     hint_text: "Place"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Bike No."
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: bike_no
                     hint_text: "Bike No."
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Model"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: model
                     hint_text: "Model"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Year"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: year
                     hint_text: "Year"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Engine Number"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: engine_no
                     hint_text: "Engine Number"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Chassis Number"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
-                    id: chasis_no
-                    hint_text: "Chasis Number"
+                    id: chassis_no
+                    hint_text: "Chassis Number"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
+                Label:
+                    text: "Approx. Amount"
+                    font_size: '16sp'
+                    size_hint_y: None
+                    height: '28dp'
                 TextInput:
                     id: approx_amount
-                    hint_text: "Approx Amount"
+                    hint_text: "Approx. Amount"
                     multiline: False
                     size_hint_y: None
                     height: '40dp'
@@ -83,13 +128,13 @@
                     size_hint_y: None
                     height: '80dp'
                 Label:
-                    text: "Pechiyamman Demand"
+                    text: "Mechanic Demand"
                     font_size: '16sp'
                     size_hint_y: None
                     height: '28dp'
                 TextInput:
-                    id: pechiyamman_demand
-                    hint_text: "Pechiyamman Demand"
+                    id: mech_demand
+                    hint_text: "Mechanic Demand"
                     multiline: True
                     size_hint_y: None
                     height: '80dp'
@@ -130,7 +175,7 @@
                         on_release: app.root.current = "dashboard"
                     Button:
                         text: "Generate PDF"
-                        on_release: app.root.get_screen('job_card').generate_job_card_pdf(name.text, phone.text, place.text, bike_no.text, model.text, year.text, engine_no.text, chasis_no.text, approx_amount.text, customer_demand.text, pechiyamman_demand.text, in_time.text, est_time.text)
+                        on_release: app.root.get_screen('job_card').generate_job_card_pdf(name.text, phone.text, place.text, bike_no.text, model.text, year.text, engine_no.text, chassis_no.text, approx_amount.text, customer_demand.text, mech_demand.text, in_time.text, est_time.text)
 # --- BILLING SCREEN ---
 <BillingScreen>:
     name: "billing"
@@ -397,7 +442,7 @@
     name: "dashboard"
     canvas.before:
         Color:
-            rgba: (0.98, 0.98, 0.98, 1) # Light gray background
+            rgba: (0.98, 0.98, 0.98, 1)  # Light gray background
         Rectangle:
             pos: self.pos
             size: self.size
@@ -407,130 +452,48 @@
         padding: 16
         spacing: 16
 
-        # --- HEADER SECTION WITH LOGO AND SHOP NAME ---
+        # --- HEADER SECTION WITH IMAGES ---
         BoxLayout:
-            orientation: "vertical"
-            size_hint_y: 0.35
-            spacing: 12
-            PopupButton:
-                text: "Payment History"
-                on_release: root.dismiss()
-                orientation: "horizontal"
-                size_hint_y: 0.6
-                spacing: 12
-                canvas.before:
-                    Color:
-                        rgba: (1, 1, 1, 1)
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [16]
-                    Color:
-                        rgba: (0, 0, 0, 0.05)
-                    RoundedRectangle:
-                        pos: (self.x + 2, self.y - 2)
-                        size: self.size
-                        radius: [16]
-                
-                # Logo Section
-                BoxLayout:
-                    size_hint_x: 0.3
-                    padding: 12
-                    
-                    Image:
-                        id: logo_image
-                        source: "assets/logo.png"  # Place your logo here
-                        allow_stretch: True
-                        keep_ratio: True
-                        canvas.before:
-                            Color:
-                                rgba: (0.95, 0.95, 0.95, 1)
-                            RoundedRectangle:
-                                pos: self.pos
-                                size: self.size
-                                radius: [12]
-                
-                # Shop Name and App Title Section
-                BoxLayout:
-                    orientation: "vertical"
-                    size_hint_x: 0.7
-                    padding: [12, 16]
-                    spacing: 4
-                    
-                    Label:
-                        id: shop_name_label
-                        text: "YOUR WORKSHOP NAME"
-                        color: (0.15, 0.15, 0.15, 1)
-                        font_size: '24sp'
-                        font_name: 'Roboto'
-                        bold: True
-                        size_hint_y: 0.6
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'middle'
-                    
-                    Label:
-                        text: "Workshop Manager"
-                        color: (0.5, 0.5, 0.5, 1)
-                        font_size: '16sp'
-                        font_name: 'Roboto'
-                        size_hint_y: 0.4
-                        text_size: self.size
-                        halign: 'left'
-                        valign: 'middle'
-            
-            # Date and Time Card
-            BoxLayout:
-                orientation: "horizontal"
-                size_hint_y: 0.4
-                canvas.before:
-                    Color:
-                        rgba: (1, 1, 1, 1)
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [12]
-                    Color:
-                        rgba: (0, 0, 0, 0.05)
-                    RoundedRectangle:
-                        pos: (self.x + 2, self.y - 2)
-                        size: self.size
-                        radius: [12]
-                    Color:
-                        rgba: (0.9, 0.9, 0.9, 0.5)
-                    Line:
-                        rounded_rectangle: (self.x, self.y, self.width, self.height, 12)
-                        width: 0.5
-                
-                Label:
-                    id: date_label
-                    text: "Date"
-                    color: (0.4, 0.4, 0.4, 1)
-                    font_size: '16sp'
-                    font_name: 'Roboto'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
+            size_hint_y: 0.3
+            spacing: dp(10)
+            padding: dp(10)
 
-                Widget:
-                    size_hint_x: None
-                    width: 1
-                    canvas.before:
-                        Color:
-                            rgba: (0.9, 0.9, 0.9, 1)
-                        Rectangle:
-                            pos: self.pos
-                            size: self.size
+            # Rectangle Image on the Left
+            Image:
+                source: "assets/images/rectangle_image.png"
+                allow_stretch: True
+                keep_ratio: True
+                size_hint: None, None
+                width: dp(800)
+                height: dp(200)
 
-                Label:
-                    id: time_label
-                    text: "Time"
-                    color: (0.4, 0.4, 0.4, 1)
-                    font_size: '16sp'
-                    font_name: 'Roboto'
-                    text_size: self.size
-                    halign: 'center'
-                    valign: 'middle'
+            # Square Image on the Right
+            Image:
+                source: "assets/images/square_image.png"
+                allow_stretch: True 
+                keep_ratio: True
+                size_hint: None, None
+                width: dp(200)
+                height: dp(200)
+
+        # --- MIDDLE SECTION: DATE AND TIME ---
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: 0.1
+            spacing: dp(10)
+            padding: dp(10)
+
+            Label:
+                text: "Date: " + app.get_current_time().split(" ")[0]
+                font_size: dp(16)
+                halign: 'left'
+                color: (0.5, 0.5, 0.5, 1)
+
+            Label:
+                text: "Time: " + app.get_current_time().split(" ")[1] + " " + app.get_current_time().split(" ")[2]
+                font_size: dp(16)
+                halign: 'right'
+                color: (0.5, 0.5, 0.5, 1)
 
         # --- MAIN NAVIGATION GRID ---
         GridLayout:
@@ -538,47 +501,19 @@
             padding: 8
             spacing: 16
             size_hint_y: 0.65
-            
+
             DashboardButton:
                 text: "SERVICE"
                 on_release: root.open_service_popup()
-                canvas.before:
-                    Color:
-                        rgba: (0.2, 0.6, 1, 0.1)
-                    RoundedRectangle:
-                        pos: (self.x + 4, self.y + 4)
-                        size: (self.width - 8, self.height - 8)
-                        radius: [12]
 
             DashboardButton:
                 text: "SPARE PARTS"
                 on_release: app.root.current = "stock_list"
-                canvas.before:
-                    Color:
-                        rgba: (0.2, 0.7, 0.3, 0.1)
-                    RoundedRectangle:
-                        pos: (self.x + 4, self.y + 4)
-                        size: (self.width - 8, self.height - 8)
-                        radius: [12]
 
             DashboardButton:
                 text: "BILLING"
                 on_release: root.open_billing_popup()
-                canvas.before:
-                    Color:
-                        rgba: (1, 0.6, 0.2, 0.1)
-                    RoundedRectangle:
-                        pos: (self.x + 4, self.y + 4)
-                        size: (self.width - 8, self.height - 8)
-                        radius: [12]
 
             DashboardButton:
                 text: "HISTORY"
                 on_release: app.root.current = "analytics"
-                canvas.before:
-                    Color:
-                        rgba: (0.8, 0.3, 0.8, 0.1)
-                    RoundedRectangle:
-                        pos: (self.x + 4, self.y + 4)
-                        size: (self.width - 8, self.height - 8)
-                        radius: [12]
