@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[co]
+*$py.class
+
+# C extensions
+*.so
+
+*.pdf
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.log
+*.spec
+
+# PyCharm
+.idea/
+
+# Kivy related
+.kivy/
+kivy_venv/  # If you're using a virtual environment for Kivy
+kivy_cache/
+*.apk
+*.so
+*.so.*
+buildozer.spec
+buildozer.log
+.buildozer/
+buildozer.lock
+# macOS
+.DS_Store
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+pechii/
+
+
+# Sensitive files (remove if you're not using them)
+# api_keys.py  # If you have API keys in a separate file (or similar)
+# secrets.py  # Or any other file with sensitive information
